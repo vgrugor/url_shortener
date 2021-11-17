@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::get('/auth/redirect', [\App\Http\Controllers\GitHubLoginController::class, 'redirectGitHub'])
+    ->name('redirectGitHub');
+
+Route::get('/auth/callback', [\App\Http\Controllers\GitHubLoginController::class, 'callbackGitHub']);
