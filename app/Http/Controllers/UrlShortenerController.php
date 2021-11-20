@@ -23,8 +23,22 @@ class UrlShortenerController extends Controller
 
         $this->urlRepository->add($shortUrl, $url, $domain);
 
-        $link = $request->getHost() . '/' . $shortUrl;
+        $linkName = $request->getHost() . '/' . $shortUrl;
+        $link = '/' . $shortUrl;
 
-        return view('dashboard')->with(['link' => $link]);
+        return view('dashboard')->with(['linkName' => $linkName, 'link' => $link]);
+    }
+
+    public function redirect(string $shortUrl)
+    {
+        $urls = $this->urlRepository->getAllByShortUrl($shortUrl);
+
+        foreach ($urls as $url) {
+            if ($url->short_key === $shortUrl) {
+                return redirect($url->url);
+            }
+        }
+
+        return redirect('/');
     }
 }
