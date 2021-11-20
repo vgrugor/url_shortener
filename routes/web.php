@@ -22,9 +22,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::post('/dashboard', [\App\Http\Controllers\UrlShortenerController::class, 'getShortUrl'])->name('get-short-url');
+
 require __DIR__.'/auth.php';
 
 Route::get('/auth/redirect', [\App\Http\Controllers\GitHubLoginController::class, 'redirectGitHub'])
     ->name('redirectGitHub');
 
 Route::get('/auth/callback', [\App\Http\Controllers\GitHubLoginController::class, 'callbackGitHub']);
+

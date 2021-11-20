@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
+        App\Providers\UrlShortenerProvider::class,
 
         /*
          * Package Service Providers...
