@@ -2,23 +2,29 @@
 
 namespace App\Services;
 
-use App\Services\Contracts\IUrlShortener;
+use App\Services\Contracts\IShortUrlValidator;
+use App\Services\Contracts\IShortUrlGenerator;
 use Illuminate\Support\Str;
 
-class ShortUrlGeneratorService implements IUrlShortener
+class ShortUrlGeneratorService implements IShortUrlGenerator
 {
+    private IShortUrlValidator $validator;
+
+    public function __construct(IShortUrlValidator $validator)
+    {
+        $this->validator = $validator;
+    }
 
     /**
      * @param string $url
      * @return string
      * @throws \Exception
      */
-    public function getShortUrl()
+    public function getShortUrl(): string
     {
-        //do {
+        do {
             $shortUrl = Str::random(random_int(1, 10));
-            //TODO: перевірка чи є в базі
-        //} while(поки є в БД);
+        } while(!$this->validator->validate($shortUrl));
 
         return $shortUrl;
     }

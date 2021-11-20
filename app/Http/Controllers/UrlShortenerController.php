@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
 use App\Repositories\Contracts\IUrlRepository;
-use App\Services\Contracts\IUrlShortener;
+use App\Services\Contracts\IShortUrlGenerator;
 
 class UrlShortenerController extends Controller
 {
@@ -15,7 +15,7 @@ class UrlShortenerController extends Controller
         $this->urlRepository = $urlRepository;
     }
 
-    public function getShortUrl(UrlShortenerRequest $request, IUrlShortener $urlShortGenerator)
+    public function getShortUrl(UrlShortenerRequest $request, IShortUrlGenerator $urlShortGenerator)
     {
         $shortUrl = $urlShortGenerator->getShortUrl();
         $url = $request->input('url');
@@ -23,6 +23,8 @@ class UrlShortenerController extends Controller
 
         $this->urlRepository->add($shortUrl, $url, $domain);
 
-        return view('dashboard')->with(['url' => $shortUrl]);
+        $link = $request->getHost() . '/' . $shortUrl;
+
+        return view('dashboard')->with(['link' => $link]);
     }
 }

@@ -23,8 +23,8 @@
                             </ul>
                         </div>
                     @endif
-                    @if(isset($url))
-                        <a href="{{$url}}">{{$url}}</a>
+                    @if(isset($link))
+                        <a href="{{$link}}">{{$link}}</a>
                     @endif
                 </div>
             </div>
