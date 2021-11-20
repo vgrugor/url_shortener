@@ -4,5 +4,5 @@ namespace App\Services\Contracts;
 
 interface IUrlShortener
 {
-    public function getShortUrl(string $url);
+    public function getShortUrl();
 }

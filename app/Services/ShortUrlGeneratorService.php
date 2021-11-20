@@ -13,7 +13,7 @@ class ShortUrlGeneratorService implements IUrlShortener
      * @return string
      * @throws \Exception
      */
-    public function getShortUrl(string $url)
+    public function getShortUrl()
     {
         //do {
             $shortUrl = Str::random(random_int(1, 10));
