@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\Contracts\IShortUrlValidator;
 use App\Services\Contracts\IShortUrlGenerator;
+use Exception;
 use Illuminate\Support\Str;
 
 class ShortUrlGeneratorService implements IShortUrlGenerator
@@ -18,7 +19,7 @@ class ShortUrlGeneratorService implements IShortUrlGenerator
     /**
      * @param string $url
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function getShortUrl(): string
     {

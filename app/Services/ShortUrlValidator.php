@@ -7,7 +7,7 @@ use App\Services\Contracts\IShortUrlValidator;
 
 class ShortUrlValidator implements IShortUrlValidator
 {
-    protected IUrlRepository $urlRepository;
+    private IUrlRepository $urlRepository;
 
     public function __construct(IUrlRepository $urlRepository)
     {

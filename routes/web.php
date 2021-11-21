@@ -29,4 +29,3 @@ Route::get('/auth/redirect', [GitHubLoginController::class, 'redirectGitHub'])
 Route::get('/auth/callback', [GitHubLoginController::class, 'callbackGitHub']);
 
 Route::get('/{key}', [UrlShortenerController::class, 'redirect']);
-
