@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\GitHubLoginController;
+use App\Http\Controllers\UrlShortenerController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +16,16 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::post('/', [UrlShortenerController::class, 'getShortUrl'])->name('get-short-url');
+
 require __DIR__.'/auth.php';
 
-Route::get('/auth/redirect', [\App\Http\Controllers\GitHubLoginController::class, 'redirectGitHub'])
+Route::get('/auth/redirect', [GitHubLoginController::class, 'redirectGitHub'])
     ->name('redirectGitHub');
 
-Route::get('/auth/callback', [\App\Http\Controllers\GitHubLoginController::class, 'callbackGitHub']);
+Route::get('/auth/callback', [GitHubLoginController::class, 'callbackGitHub']);
+
+Route::get('/{key}', [UrlShortenerController::class, 'redirect']);
