@@ -3,40 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
-use App\Repositories\Contracts\IUrlRepository;
-use App\Services\Contracts\IShortUrlGenerator;
+use App\Services\UrlService;
 
 class UrlShortenerController extends Controller
 {
-    private IUrlRepository $urlRepository;
+    private UrlService $urlService;
 
-    public function __construct(IUrlRepository $urlRepository)
+    public function __construct(UrlService $urlService)
     {
-        $this->urlRepository = $urlRepository;
+        $this->urlService = $urlService;
     }
 
-    public function getShortUrl(UrlShortenerRequest $request, IShortUrlGenerator $urlShortGenerator)
+    public function getShortUrl(UrlShortenerRequest $request)
     {
-        $shortUrl = $urlShortGenerator->getShortUrl();
-        $url = $request->input('url');
-        $domain = parse_url($request->input('url'), PHP_URL_HOST);
+        $shortUrl = $this->urlService->getShortUrl($request->input('url'));
 
-        $this->urlRepository->add($shortUrl, $url, $domain);
-
-        $linkName = $request->getHost() . '/' . $shortUrl;
-        $link = '/' . $shortUrl;
-
-        return view('dashboard')->with(['linkName' => $linkName, 'link' => $link]);
+        return view('dashboard')->with(['linkName' => $shortUrl, 'link' => $shortUrl]);
     }
 
     public function redirect(string $shortUrl)
     {
-        $urls = $this->urlRepository->getAllByShortUrl($shortUrl);
+        $originUrl = $this->urlService->getRedirectUrl($shortUrl);
 
-        foreach ($urls as $url) {
-            if ($url->short_key === $shortUrl) {
-                return redirect($url->url);
-            }
+        if (!empty($originUrl)) {
+            return redirect($originUrl);
         }
 
         return redirect('/');

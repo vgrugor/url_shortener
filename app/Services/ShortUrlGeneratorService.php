@@ -2,31 +2,22 @@
 
 namespace App\Services;
 
-use App\Services\Contracts\IShortUrlValidator;
 use App\Services\Contracts\IShortUrlGenerator;
 use Exception;
 use Illuminate\Support\Str;
 
 class ShortUrlGeneratorService implements IShortUrlGenerator
 {
-    private IShortUrlValidator $validator;
-
-    public function __construct(IShortUrlValidator $validator)
-    {
-        $this->validator = $validator;
-    }
+    private const MIN_LEN_KEY = 1;
+    private const MAX_LEN_KEY = 10;
 
     /**
      * @param string $url
      * @return string
      * @throws Exception
      */
-    public function getShortUrl(): string
+    public function generate(): string
     {
-        do {
-            $shortUrl = Str::random(random_int(1, 10));
-        } while(!$this->validator->validate($shortUrl));
-
-        return $shortUrl;
+        return Str::random(random_int(self::MIN_LEN_KEY, self::MAX_LEN_KEY));
     }
 }
