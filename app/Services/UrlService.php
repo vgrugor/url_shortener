@@ -57,5 +57,7 @@ class UrlService
                 return $url->url;
             }
         }
+
+        return '';
     }
 }

@@ -23,10 +23,10 @@ class UrlShortenerController extends Controller
 
     public function redirect(string $shortUrl)
     {
-        $originUrl = $this->urlService->getRedirectUrl($shortUrl);
+        $longUrl = $this->urlService->getRedirectUrl($shortUrl);
 
-        if (!empty($originUrl)) {
-            return redirect($originUrl);
+        if (!empty($longUrl)) {
+            return redirect($longUrl);
         }
 
         return redirect('/');
