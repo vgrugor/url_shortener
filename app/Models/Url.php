@@ -22,6 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereShortKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereUrl($value)
  * @mixin \Eloquent
+ * @property int|null $user_id
+ * @property string $visited_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Url whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Url whereVisitedAt($value)
  */
 class Url extends Model
 {

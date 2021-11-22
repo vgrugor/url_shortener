@@ -18,7 +18,10 @@ class UrlShortenerController extends Controller
     {
         $shortUrl = $this->urlService->getShortUrl($request->input('url'));
 
-        return view('dashboard')->with(['linkName' => $shortUrl, 'link' => $shortUrl]);
+        return view('dashboard')->with([
+            'linkName' => $request->getHost() . '/' . $shortUrl,
+            'link' => $shortUrl,
+        ]);
     }
 
     public function redirect(string $shortUrl)

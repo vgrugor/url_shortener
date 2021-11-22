@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Url;
-use Illuminate\Database\Eloquent\Collection;
 
 class UrlRepository implements Contracts\IUrlRepository
 {
@@ -14,9 +13,10 @@ class UrlRepository implements Contracts\IUrlRepository
         $this->url = $url;
     }
 
-    public function save(string $shortUrl, string $url, string $domain): Url
+    public function save(int $userId, string $shortUrl, string $url, string $domain): Url
     {
-        $newUrl = new Url();
+        $newUrl = new $this->url();
+        $newUrl->user_id = $userId;
         $newUrl->short_key = $shortUrl;
         $newUrl->url = $url;
         $newUrl->domain = $domain;
@@ -25,8 +25,8 @@ class UrlRepository implements Contracts\IUrlRepository
         return $newUrl;
     }
 
-    public function getAllByShortUrl(string $shortUrl): ?Collection
+    public function getUrlByShortKey(string $shortUrl): ?Url
     {
-        return Url::where('short_key', $shortUrl)->get();
+        return Url::where('short_key', $shortUrl)->first();
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface IUrlRepository
 {
-    public function save(string $shortUrl, string $url, string $domain): Url;
+    public function save(int $userId, string $shortUrl, string $url, string $domain): Url;
 
-    public function getAllByShortUrl(string $shortUrl): ?Collection;
+    public function getUrlByShortKey(string $shortUrl): ?Url;
 }
