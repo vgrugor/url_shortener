@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Url;
+use App\Services\ShortenerDto;
 
 class UrlRepository implements Contracts\IUrlRepository
 {
@@ -13,16 +14,16 @@ class UrlRepository implements Contracts\IUrlRepository
         $this->url = $url;
     }
 
-    public function save(int $userId, string $shortUrl, string $url, string $domain): Url
+    public function save(ShortenerDto $shortenerDto, string $shortKey): void
     {
         $newUrl = new $this->url();
-        $newUrl->user_id = $userId;
-        $newUrl->short_key = $shortUrl;
-        $newUrl->url = $url;
-        $newUrl->domain = $domain;
-        $newUrl->save();
 
-        return $newUrl;
+        $newUrl->user_id = $shortenerDto->userId;
+        $newUrl->short_key = $shortKey;
+        $newUrl->url = $shortenerDto->url;
+        $newUrl->domain = $shortenerDto->domain;
+
+        $newUrl->save();
     }
 
     public function getUrlByShortKey(string $shortUrl): ?Url

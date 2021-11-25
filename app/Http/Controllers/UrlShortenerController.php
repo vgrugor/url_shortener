@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
-use App\Services\UrlService;
+use App\Services\ShortUrlFactory;
 
 class UrlShortenerController extends Controller
 {
-    private UrlService $urlService;
-
-    public function __construct(UrlService $urlService)
+    public function getShortUrl(UrlShortenerRequest $request, ShortUrlFactory $shortUrlFactory)
     {
-        $this->urlService = $urlService;
-    }
+        $shortener = $shortUrlFactory->getShortenerStrategy();
 
-    public function getShortUrl(UrlShortenerRequest $request)
-    {
-        $shortUrl = $this->urlService->getShortUrl($request->input('url'));
+        $shortener->create();
+
+        dd();
 
         return view('dashboard')->with([
             'linkName' => $request->getHost() . '/' . $shortUrl,

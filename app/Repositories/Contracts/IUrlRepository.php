@@ -3,11 +3,12 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Url;
+use App\Services\ShortenerDto;
 use Illuminate\Database\Eloquent\Collection;
 
 interface IUrlRepository
 {
-    public function save(int $userId, string $shortUrl, string $url, string $domain): Url;
+    public function save(ShortenerDto $dto, string $shortKey): void;
 
     public function getUrlByShortKey(string $shortUrl): ?Url;
 }
