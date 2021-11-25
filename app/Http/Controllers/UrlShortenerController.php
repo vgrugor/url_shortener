@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
 use App\Services\ShortUrlFactory;
+use App\Services\UrlService;
 
 class UrlShortenerController extends Controller
 {
@@ -11,19 +12,18 @@ class UrlShortenerController extends Controller
     {
         $shortener = $shortUrlFactory->getShortenerStrategy();
 
-        $shortener->create();
-
-        dd();
+        $shortUrl = $shortener->create();
 
         return view('dashboard')->with([
             'linkName' => $request->getHost() . '/' . $shortUrl,
             'link' => $shortUrl,
+            'message' => $shortener->message,
         ]);
     }
 
-    public function redirect(string $shortUrl)
+    public function redirect(UrlService $service, string $shortUrl)
     {
-        $longUrl = $this->urlService->getRedirectUrl($shortUrl);
+        $longUrl = $service->getRedirectUrl($shortUrl);
 
         if (!empty($longUrl)) {
             return redirect($longUrl);

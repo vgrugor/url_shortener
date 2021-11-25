@@ -14,7 +14,7 @@ class UrlRepository implements Contracts\IUrlRepository
         $this->url = $url;
     }
 
-    public function save(ShortenerDto $shortenerDto, string $shortKey): void
+    public function save(ShortenerDto $shortenerDto, string $shortKey): string
     {
         $newUrl = new $this->url();
 
@@ -24,6 +24,8 @@ class UrlRepository implements Contracts\IUrlRepository
         $newUrl->domain = $shortenerDto->domain;
 
         $newUrl->save();
+
+        return $shortKey;
     }
 
     public function getUrlByShortKey(string $shortUrl): ?Url

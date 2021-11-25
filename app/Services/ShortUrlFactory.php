@@ -2,24 +2,25 @@
 
 namespace App\Services;
 
+use App\Services\Contracts\IShortenerStrategy;
 use App\Services\Strategies\NamedShortUrl;
 use Illuminate\Container\Container;
 
 final class ShortUrlFactory
 {
-    private ShortenerDto $shortenerData;
+    private ShortenerDto $shortenerDto;
 
-    public function __construct(ShortenerDto $shortenerData)
+    public function __construct(ShortenerDto $shortenerDto)
     {
-        $this->shortenerData = $shortenerData;
+        $this->shortenerDto = $shortenerDto;
     }
 
     //TODO: return type
-    public function getShortenerStrategy()
+    public function getShortenerStrategy(): IShortenerStrategy
     {
         $container = Container::getInstance();
 
-        if (!is_null($this->shortenerData->name)) {
+        if (!is_null($this->shortenerDto->name)) {
             return $container->make(NamedShortUrl::class);
         }
         /*elseif ($dto->isSecret) {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface IUrlRepository
 {
-    public function save(ShortenerDto $dto, string $shortKey): void;
+    public function save(ShortenerDto $dto, string $shortKey): string;
 
     public function getUrlByShortKey(string $shortUrl): ?Url;
 }

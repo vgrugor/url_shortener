@@ -36,9 +36,15 @@
                             </ul>
                         </div>
                     @endif
-                    @if(isset($link))
+                    @if(empty($message))
+                        @if(isset($link))
+                            <div class="flex justify-center p-4">
+                                <a href="{{$link}}">{{$linkName}}</a>
+                            </div>
+                        @endif
+                    @else
                         <div class="flex justify-center p-4">
-                            <a href="{{$link}}">{{$linkName}}</a>
+                            <h2>{{$message}}</h2>
                         </div>
                     @endif
                 </div>

@@ -10,6 +10,8 @@ class NamedShortUrl implements IShortenerStrategy
 {
     private ShortenerDto $shortenerData;
     private IUrlRepository $urlRepository;
+    public string $message = '';
+    private const ERROR_MESSAGE = 'Name already exists!';
 
     public function __construct(ShortenerDto $dto, IUrlRepository $repository)
     {
@@ -17,11 +19,14 @@ class NamedShortUrl implements IShortenerStrategy
         $this->urlRepository = $repository;
     }
 
-    public function create(): void
+    public function create(): string
     {
         if ($this->isUnique()) {
-            $this->urlRepository->save($this->shortenerData, $this->shortenerData->name);
+            return $this->urlRepository->save($this->shortenerData, $this->shortenerData->name);
         }
+        $this->message = self::ERROR_MESSAGE;
+
+        return '';
     }
 
     private function isUnique(): bool
