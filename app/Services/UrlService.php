@@ -21,7 +21,7 @@ class UrlService
     {
         do {
             $shortUrl = $this->shortUrlGenerator->generate();
-        } while (!$this->checkUniqueness($shortUrl));
+        } while (!$this->isUnique($shortUrl));
 
         $this->save($shortUrl, $url);
 
@@ -37,7 +37,7 @@ class UrlService
         $this->urlRepository->save($userId, $shortKey, $url, $domain);
     }
 
-    private function checkUniqueness(string $shortKey): bool
+    private function isUnique(string $shortKey): bool
     {
         $duplicate = $this->urlRepository->getUrlByShortKey($shortKey);
         if ($duplicate) {
