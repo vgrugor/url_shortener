@@ -14,12 +14,13 @@ class UrlRepository implements Contracts\IUrlRepository
         $this->url = $url;
     }
 
-    public function save(ShortenerDto $shortenerDto, string $shortKey): string
+    public function save(ShortenerDto $shortenerDto, string $shortKey, string $secretKey = null): string
     {
         $newUrl = new $this->url();
 
         $newUrl->user_id = $shortenerDto->userId;
         $newUrl->short_key = $shortKey;
+        $newUrl->secret_key = $secretKey;
         $newUrl->url = $shortenerDto->url;
         $newUrl->domain = $shortenerDto->domain;
 
