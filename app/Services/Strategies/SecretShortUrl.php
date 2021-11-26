@@ -12,8 +12,6 @@ class SecretShortUrl implements IShortenerStrategy
     private ShortenerDto $shortenerData;
     private IUrlRepository $urlRepository;
     private IShortUrlGenerator $generator;
-    public string $message = '';
-    private const ERROR_MESSAGE = 'Name already exists!';
 
     public function __construct(ShortenerDto $dto, IUrlRepository $repository, IShortUrlGenerator $generator)
     {

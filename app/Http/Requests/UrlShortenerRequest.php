@@ -25,7 +25,7 @@ class UrlShortenerRequest extends FormRequest
     {
         return [
             'url' => 'required|string|url',
-            'urlName' => 'string',
+            'name' => 'unique:urls,short_key',
         ];
     }
 
@@ -35,7 +35,8 @@ class UrlShortenerRequest extends FormRequest
             'url.required' => 'The field :attribute is required',
             'url.string' => 'The field :attribute must be a string',
             'url.url' => 'The field :attribute must be correct url',
-            'urlName.string' => 'The field :attribute must be a string',
+            'name.string' => 'The field :attribute must be a string',
+            'name.unique' => ':attribute name is already taken',
         ];
     }
 }

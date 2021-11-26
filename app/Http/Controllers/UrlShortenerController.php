@@ -17,7 +17,6 @@ class UrlShortenerController extends Controller
         return view('dashboard')->with([
             'linkName' => $request->getHost() . '/' . $shortUrl,
             'link' => $shortUrl,
-            'message' => $shortener->message,
         ]);
     }
 
