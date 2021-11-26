@@ -2,21 +2,8 @@
 
 namespace App\Services\Strategies;
 
-use App\Repositories\Contracts\IUrlRepository;
-use App\Services\Contracts\IShortenerStrategy;
-use App\Services\ShortenerDto;
-
-class NamedShortUrl implements IShortenerStrategy
+final class NamedShortUrl extends BaseStrategy
 {
-    private ShortenerDto $shortenerData;
-    private IUrlRepository $urlRepository;
-
-    public function __construct(ShortenerDto $dto, IUrlRepository $repository)
-    {
-        $this->shortenerData = $dto;
-        $this->urlRepository = $repository;
-    }
-
     public function create(): string
     {
         if ($this->isUnique()) {
