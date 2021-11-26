@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Services\Contracts\IShortenerStrategy;
 use App\Services\Strategies\NamedShortUrl;
 use App\Services\Strategies\SecretShortUrl;
+use App\Services\Strategies\SimpleShortUrl;
 use Illuminate\Container\Container;
 
 final class ShortUrlFactory
@@ -24,8 +25,8 @@ final class ShortUrlFactory
             return $container->make(NamedShortUrl::class);
         } elseif ($this->shortenerDto->isSecret) {
             return $container->make(SecretShortUrl::class);
-        } /*else {
-            return new SimpleShortUrl($dto);
-    }*/
+        } else {
+            return $container->make(SimpleShortUrl::class);
+        }
     }
 }
