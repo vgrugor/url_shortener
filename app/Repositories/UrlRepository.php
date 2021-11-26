@@ -3,24 +3,34 @@
 namespace App\Repositories;
 
 use App\Models\Url;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\ShortenerDto;
 
 class UrlRepository implements Contracts\IUrlRepository
 {
+    private Url $url;
 
-    public function add(string $shortUrl, string $url, string $domain): void
+    public function __construct(Url $url)
     {
-        $newUrl = new Url();
-
-        $newUrl->short_key = $shortUrl;
-        $newUrl->url = $url;
-        $newUrl->domain = $domain;
-
-        $newUrl->save();
+        $this->url = $url;
     }
 
-    public function getAllByShortUrl(string $shortUrl): ?Collection
+    public function save(ShortenerDto $shortenerDto, string $shortKey, string $secretKey = null): string
     {
-        return Url::where('short_key', $shortUrl)->get();
+        $newUrl = new $this->url();
+
+        $newUrl->user_id = $shortenerDto->userId;
+        $newUrl->short_key = $shortKey;
+        $newUrl->secret_key = $secretKey;
+        $newUrl->url = $shortenerDto->url;
+        $newUrl->domain = $shortenerDto->domain;
+
+        $newUrl->save();
+
+        return $shortKey;
+    }
+
+    public function getUrlByShortKey(string $shortUrl): ?Url
+    {
+        return Url::where('short_key', $shortUrl)->first();
     }
 }

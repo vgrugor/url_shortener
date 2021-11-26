@@ -1,12 +1,12 @@
-- oauth login (via github, google etc)
-- short link form (https://google.com?q=some-question => http://url-shortener/ab2)
+- <strike>oauth login (via github, google etc)</strike>
+- <strike>short link form </strike>(https://google.com?q=some-question => http://url-shortener/ab2)
 - secret short ulrs ((https://google.com?q=some-question => http://url-shortener/ab2/oifahf98afg8ab9yyf87))
 - named short urls (https://google.com?q=some-question => http://url-shortener/my-question)
 - add black list for short keys
 - ttl to short urls (delete after some time)
 - add redis for caching urls
-- ensure, that short key will not be rewriten
-- ensure, that mysql returns case sensitive result
+- <strike>ensure, that short key will not be rewriten</strike>
+- <strike>ensure, that mysql returns case sensitive result</strike>
 - add api
 - add statistic
 - add logs via ELK stack

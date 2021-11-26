@@ -4,5 +4,5 @@ namespace App\Services\Contracts;
 
 interface IShortUrlGenerator
 {
-    public function getShortUrl(): string;
+    public function generate(): string;
 }
