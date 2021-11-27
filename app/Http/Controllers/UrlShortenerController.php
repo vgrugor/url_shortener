@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
 use App\Services\ShortUrlFactory;
-use App\Services\UrlService;
 
 class UrlShortenerController extends Controller
 {
@@ -19,6 +18,4 @@ class UrlShortenerController extends Controller
             'link' => $shortUrl,
         ]);
     }
-
-
 }
