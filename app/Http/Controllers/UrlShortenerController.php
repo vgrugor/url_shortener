@@ -20,14 +20,5 @@ class UrlShortenerController extends Controller
         ]);
     }
 
-    public function redirect(UrlService $service, string $shortUrl)
-    {
-        $longUrl = $service->getRedirectUrl($shortUrl);
 
-        if (!empty($longUrl)) {
-            return redirect($longUrl);
-        }
-
-        return redirect('/');
-    }
 }

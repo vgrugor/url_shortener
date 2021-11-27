@@ -26,11 +26,21 @@ class UrlRepository implements Contracts\IUrlRepository
 
         $newUrl->save();
 
-        return $shortKey;
+        return $secretKey ? $shortKey . '/' . $secretKey: $shortKey;
     }
 
     public function getUrlByShortKey(string $shortUrl): ?Url
     {
         return Url::where('short_key', $shortUrl)->first();
+    }
+
+    public function getSecretUrlByShortKey(string $shortKey, string $secretKey): ?Url
+    {
+        $condition = [
+            'short_key' => $shortKey,
+            'secret_key' => $secretKey,
+        ];
+
+        return Url::where($condition)->first();
     }
 }

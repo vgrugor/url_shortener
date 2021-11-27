@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $visited_at
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereVisitedAt($value)
+ * @property string|null $secret_key
+ * @property string $valid_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Url whereSecretKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Url whereValidAt($value)
  */
 class Url extends Model
 {
