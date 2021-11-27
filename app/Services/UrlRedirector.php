@@ -6,8 +6,7 @@ use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
 use App\Services\Contracts\IShortUrlGenerator;
 
-class UrlService
-//TODO: rename class
+class UrlRedirector
 {
     private IUrlRepository $urlRepository;
 

@@ -6,7 +6,7 @@ use App\Services\Contracts\IShortUrlGenerator;
 use Exception;
 use Illuminate\Support\Str;
 
-class ShortUrlGeneratorService implements IShortUrlGenerator
+class ShortUrlGenerator implements IShortUrlGenerator
 {
     public const MIN_LEN_SHORT_KEY = 1;
     public const MAX_LEN_SHORT_KEY = 10;
