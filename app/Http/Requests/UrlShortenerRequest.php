@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UrlShortenerRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class UrlShortenerRequest extends FormRequest
     {
         return [
             'url' => 'required|string|url',
-            'name' => 'max:10|unique:urls,short_key',
+            'name' => ['max:10', 'unique:urls,short_key', Rule::notIn(include "../app/Services/blacklist.php")],
         ];
     }
 

@@ -20,6 +20,21 @@ class ShortUrlGenerator implements IShortUrlGenerator
      */
     public function generate(int $min = self::MIN_LEN_SHORT_KEY, int $max = self::MAX_LEN_SHORT_KEY): string
     {
-        return Str::random(random_int($min, $max));
+        do {
+            $shortUrl = Str::random(random_int($min, $max));
+        } while ($this->inBlackList($shortUrl));
+
+        return $shortUrl;
+    }
+
+    private function inBlackList(string $shortKey): bool
+    {
+        $blacklist = array_flip(include "blacklist.php");
+
+        if (isset($blacklist[$shortKey])) {
+            return true;
+        }
+
+        return false;
     }
 }
