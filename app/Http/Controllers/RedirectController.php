@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\UrlService;
+use App\Services\UrlRedirector;
 use Illuminate\Http\Response;
 
 class RedirectController extends Controller
 {
-    private UrlService $urlService;
+    private UrlRedirector $urlService;
 
-    public function __construct(UrlService $urlService)
+    public function __construct(UrlRedirector $urlService)
     {
         $this->urlService = $urlService;
     }

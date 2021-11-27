@@ -7,7 +7,7 @@ use App\Services\Contracts\IAuthenticator;
 use Illuminate\Support\Facades\Auth;
 use \Laravel\Socialite\Two\User;
 
-class GitHubAuthenticatorService implements IAuthenticator
+class GitHubAuthenticator implements IAuthenticator
 {
     private IUserRepository $userRepository;
 

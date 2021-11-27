@@ -9,7 +9,7 @@ final class SecretShortUrl extends BaseStrategy
     public function create(): string
     {
         $shortKey = $this->generateShortKey();
-        $secretKey = $this->generateSecretKey(ShortUrlGenerator::MIN_LENGTH_SECRET_KEY, ShortUrlGenerator::MAX_LENGTH_SECRET_KEY);
+        $secretKey = $this->generateSecretKey();
 
         if ($this->isUnique($shortKey)) {
             return $this->urlRepository->save($this->shortenerData, $shortKey, $secretKey);
@@ -33,6 +33,6 @@ final class SecretShortUrl extends BaseStrategy
 
     private function generateSecretKey(): string
     {
-        return $this->generator->generate();
+        return $this->generator->generate(ShortUrlGenerator::MIN_LENGTH_SECRET_KEY, ShortUrlGenerator::MAX_LENGTH_SECRET_KEY);
     }
 }
