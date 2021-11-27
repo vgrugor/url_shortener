@@ -2,14 +2,14 @@
 
 namespace App\Services\Strategies;
 
-use App\Services\ShortUrlGeneratorService;
+use App\Services\ShortUrlGenerator;
 
 final class SecretShortUrl extends BaseStrategy
 {
     public function create(): string
     {
         $shortKey = $this->generateShortKey();
-        $secretKey = $this->generateSecretKey(ShortUrlGeneratorService::MIN_LENGTH_SECRET_KEY, ShortUrlGeneratorService::MAX_LENGTH_SECRET_KEY);
+        $secretKey = $this->generateSecretKey(ShortUrlGenerator::MIN_LENGTH_SECRET_KEY, ShortUrlGenerator::MAX_LENGTH_SECRET_KEY);
 
         if ($this->isUnique($shortKey)) {
             return $this->urlRepository->save($this->shortenerData, $shortKey, $secretKey);
