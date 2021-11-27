@@ -27,6 +27,13 @@
                         </div>
                         @csrf
                     </form>
+                    @if (isset($message))
+                        <div class="alert alert-danger">
+                            <ul>
+                                {{ $message }}
+                            </ul>
+                        </div>
+                    @endif
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>

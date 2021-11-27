@@ -17,16 +17,22 @@ final class ShortUrlFactory
         $this->shortenerDto = $shortenerDto;
     }
 
+    /**
+     * @return IShortenerStrategy
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function getShortenerStrategy(): IShortenerStrategy
     {
         $container = Container::getInstance();
 
         if (!is_null($this->shortenerDto->name)) {
             return $container->make(NamedShortUrl::class);
-        } elseif ($this->shortenerDto->isSecret) {
-            return $container->make(SecretShortUrl::class);
-        } else {
-            return $container->make(SimpleShortUrl::class);
         }
+
+        if ($this->shortenerDto->isSecret) {
+            return $container->make(SecretShortUrl::class);
+        }
+
+        return $container->make(SimpleShortUrl::class);
     }
 }

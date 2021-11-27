@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GitHubLoginController;
+use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\UrlShortenerController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::view('/', 'dashboard')
         ->name('dashboard');
 
-    Route::get('/{key}', [UrlShortenerController::class, 'redirect']);
+    Route::get('/{shortKey}/{secretKey}', [RedirectController::class, 'secretRedirect']);
+
+    Route::get('/{shortKey}', [RedirectController::class, 'redirect']);
 });
