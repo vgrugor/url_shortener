@@ -23,6 +23,6 @@ class UrlService
 
     public function getRedirectSecretUrl(string $shortKey, string $secretKey): ?Url
     {
-        return $this->urlRepository->getSecretUrlByShortKey();
+        return $this->urlRepository->getSecretUrlByShortKey($shortKey, $secretKey);
     }
 }

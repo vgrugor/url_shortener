@@ -3,28 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Services\UrlService;
+use Illuminate\Http\Response;
 
 class RedirectController extends Controller
 {
-    //TODO: make construct and create SERVICE
-    public function redirect(UrlService $service, string $shortKey)
+    private UrlService $urlService;
+
+    public function __construct(UrlService $urlService)
     {
-        $url = $service->getRedirectUrl($shortKey);
-
-        if ($url !== null && $url->secret_key === null) {
-            return redirect($url->url);
-        }
-
-        abort(404);
+        $this->urlService = $urlService;
     }
 
-    public function secretRedirect(UrlService $service, string $shortKey, string $secretKey)
+    public function redirect(string $shortKey)
     {
-        $url = $service->getRedirectSecretUrl($shortKey, $secretKey);
+        $urlModel = $this->urlService->getRedirectUrl($shortKey);
 
-        if($url !== null) {
-            return redirect($url->url);
+        if ($urlModel !== null && $urlModel->secret_key === null) {
+            return redirect($urlModel->url);
         }
-        abort(404);
+        abort( Response::HTTP_NOT_FOUND);
+    }
+
+    public function secretRedirect(string $shortKey, string $secretKey)
+    {
+        $urlModel = $this->urlService->getRedirectSecretUrl($shortKey, $secretKey);
+
+        if($urlModel !== null) {
+            return redirect($urlModel->url);
+        }
+        abort(Response::HTTP_NOT_FOUND);
     }
 }

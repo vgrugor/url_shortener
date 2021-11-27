@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Url
@@ -34,6 +36,17 @@ use Illuminate\Database\Eloquent\Model;
 class Url extends Model
 {
     use HasFactory;
+    use Prunable;
 
     const UPDATED_AT = null;
+
+    public function prunable()
+    {
+        return static::where('valid_at', '<', now());
+    }
+
+    protected function pruning()
+    {
+        //TODO: Automatic delete statistic before delete old urls
+    }
 }
