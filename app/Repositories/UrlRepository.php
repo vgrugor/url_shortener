@@ -3,9 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Url;
+use App\Repositories\Contracts\IUrlRepository;
 use App\Services\ShortenerDto;
 
-class UrlRepository implements Contracts\IUrlRepository
+class UrlRepository implements IUrlRepository
 {
     private Url $url;
 
@@ -21,6 +22,7 @@ class UrlRepository implements Contracts\IUrlRepository
         $newUrl->user_id = $shortenerDto->userId;
         $newUrl->short_key = $shortKey;
         $newUrl->secret_key = $secretKey;
+        $newUrl->attributes = $this->setAttributes($shortenerDto);
         $newUrl->url = $shortenerDto->url;
         $newUrl->domain = $shortenerDto->domain;
 
@@ -48,5 +50,20 @@ class UrlRepository implements Contracts\IUrlRepository
         ];
 
         return Url::where($conditions)->first();
+    }
+
+    public function setAttributes(ShortenerDto $shortenerDto): int
+    {
+        $attributes = 0;
+
+        if ($shortenerDto->name !== null) {
+            $attributes |= self::IS_NAMED;
+        }
+
+        if ($shortenerDto->isSecret === true) {
+            $attributes |= self::IS_SECRET;
+        }
+
+        return $attributes;
     }
 }
