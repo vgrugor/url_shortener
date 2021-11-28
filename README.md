@@ -1,9 +1,9 @@
 - <strike>oauth login (via github, google etc)</strike>
 - <strike>short link form </strike>(https://google.com?q=some-question => http://url-shortener/ab2)
-- secret short ulrs ((https://google.com?q=some-question => http://url-shortener/ab2/oifahf98afg8ab9yyf87))
-- named short urls (https://google.com?q=some-question => http://url-shortener/my-question)
-- add black list for short keys
-- ttl to short urls (delete after some time)
+- <strike>secret short ulrs </strike>((https://google.com?q=some-question => http://url-shortener/ab2/oifahf98afg8ab9yyf87))
+- <strike>named short urls </strike>(https://google.com?q=some-question => http://url-shortener/my-question)
+- <strike>add black list for short keys</strike>
+- <strike>ttl to short urls (delete after some time)</strike>
 - add redis for caching urls
 - <strike>ensure, that short key will not be rewriten</strike>
 - <strike>ensure, that mysql returns case sensitive result</strike>
