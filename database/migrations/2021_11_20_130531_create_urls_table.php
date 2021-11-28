@@ -21,6 +21,7 @@ class CreateUrlsTable extends Migration
             $table->string('secret_key')->nullable();
             $table->text('url');
             $table->string('domain');
+            $table->unsignedTinyInteger('attributes')->default(0);
             $table->timestamp('valid_at')->default(Carbon::now()->addDays(30));
             $table->timestamp('visited_at')->useCurrent();
             $table->timestamp('created_at')->useCurrent();

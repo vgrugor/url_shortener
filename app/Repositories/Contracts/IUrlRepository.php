@@ -7,9 +7,14 @@ use App\Services\ShortenerDto;
 
 interface IUrlRepository
 {
+    public const IS_NAMED = 1 << 0;
+    public const IS_SECRET = 1 << 1;
+
     public function save(ShortenerDto $dto, string $shortKey, string $secretKey = null): string;
 
     public function getUrlByShortKey(string $shortKey): ?Url;
 
     public function getSecretUrlByShortKey(string $shortKey, string $secretKey): ?Url;
+
+    public function setAttributes(ShortenerDto $shortenerDto): int;
 }
