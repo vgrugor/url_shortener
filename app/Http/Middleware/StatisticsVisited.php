@@ -25,7 +25,7 @@ class StatisticsVisited
     public function handle(Request $request, Closure $next)
     {
 
-        $this->statisticsService->writeVisited($request);
+        $this->statisticsService->writeVisited();
 
         return $next($request);
     }

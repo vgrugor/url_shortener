@@ -2,7 +2,9 @@
 
 namespace App\Repositories\Contracts;
 
+use App\Services\Statistics\StatisticsDto;
+
 interface IStatisticRepository
 {
-    public function save(array $a): void;
+    public function save(StatisticsDto $statisticsDto): void;
 }

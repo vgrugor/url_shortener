@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\IStatisticRepository;
+use App\Services\Statistics\StatisticsDto;
 use Illuminate\Http\Request;
 
 final class StatisticsService
@@ -10,10 +11,12 @@ final class StatisticsService
     private const CREATE = 'short_url_create';
     private const VISITED = 'short_url_visited';
     private IStatisticRepository $statisticRepository;
+    private StatisticsDto $statisticsDto;
 
-    public function __construct(IStatisticRepository $statisticRepository)
+    public function __construct(IStatisticRepository $statisticRepository, StatisticsDto $statisticsDto)
     {
         $this->statisticRepository = $statisticRepository;
+        $this->statisticsDto = $statisticsDto;
     }
 
     public function writeCreate()
@@ -23,15 +26,10 @@ final class StatisticsService
         $this->statisticRepository->save();
     }
 
-    public function writeVisited(Request $request)
+    public function writeVisited(): void
     {
-        $a = [
-            'user_id' => \Auth::id(),
-            'event_type' => self::VISITED,
-            'event_value' => $request->url(),
-            'metadata' => 'asdsadasdasda',
-        ];
+        $this->statisticsDto->eventType = self::VISITED;
 
-        $this->statisticRepository->save($a);
+        $this->statisticRepository->save($this->statisticsDto);
     }
 }
