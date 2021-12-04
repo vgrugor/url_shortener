@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
         ->name('dashboard');
 });
 
-Route::middleware('statisticsVisited')->group(function () {
+Route::middleware(['urlExists', 'statisticsVisited'])->group(function () {
     Route::get('/{shortKey}', [RedirectController::class, 'redirect']);
 
     Route::get('/{shortKey}/{secretKey}', [RedirectController::class, 'secretRedirect']);

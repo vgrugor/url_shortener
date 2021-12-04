@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Repositories\Contracts\IStatisticRepository;
 use App\Services\Statistics\StatisticsDto;
-use Illuminate\Http\Request;
 
 final class StatisticsService
 {
