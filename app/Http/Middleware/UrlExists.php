@@ -2,37 +2,27 @@
 
 namespace App\Http\Middleware;
 
-use App\Repositories\Contracts\IUrlRepository;
+use App\Services\UrlChecker;
 use Closure;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class UrlExists
 {
-    private IUrlRepository $urlRepository;
-
-    public function __construct(IUrlRepository $urlRepository)
-    {
-        $this->urlRepository = $urlRepository;
-    }
-
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param \App\Services\UrlChecker $urlChecker
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        $urlExists = $this->urlRepository->getUrlByShortKey($request->path());
+        $urlChecker = App::make( UrlChecker::class);
 
-        if (count(explode('/', $request->path())) > 1) {
-            [$shortKey, $secretKey] = explode('/', $request->path());
-            $urlExists = $this->urlRepository->getSecretUrlByShortKey($shortKey, $secretKey);
-        }
-
-        if ($urlExists) {
+        if ($urlChecker->check($request->path())) {
             return $next($request);
         }
 
