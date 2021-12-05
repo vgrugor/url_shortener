@@ -17,7 +17,7 @@ class CreateStatisticsTable extends Migration
             $table->id();
             $table->unsignedInteger('user_id')->nullable();
             $table->enum('event_type', ['short_url_create', 'short_url_visited']);
-            $table->string('event_value', 255)->nullable();
+            $table->string('event_value', 255)->index();
             $table->text('metadata');
             $table->timestamp('created_at')->useCurrent();
         });
