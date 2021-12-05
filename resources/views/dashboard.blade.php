@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Url Shortener') }}
         </h2>
     </x-slot>
 
@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <h2 class="text-center mt-5 text-4xl">Generate Short Url</h2>
                     <form action="{{route('get-short-url')}}" method="POST" class="flex-col">
                         <input class="w-full m-2" type="text" name="url" value="" tabindex="1" placeholder="url" autofocus>
                         <div class="flex justify-between items-center m-2">
@@ -20,7 +21,7 @@
                                 <label for="isSecret">Make secret url</label>
                             </div>
                         </div>
-                        <div class="flex justify-center">
+                        <div class="flex justify-center mt-6">
                             <x-button class="justify-self-center" tabindex="3">
                                 {{ __('GET SHORT URL')}}
                             </x-button>
@@ -48,6 +49,33 @@
                                 <a href="{{$link}}">{{$linkName}}</a>
                             </div>
                         @endif
+                    @endif
+                    @if (isset($top))
+                        <h2 class="text-center mt-20 text-4xl">Your most popular urls</h2>
+                        <table class="border-collapse w-full m-2 border border-green-800 ...">
+                            <thead>
+                                <tr>
+                                    <th class="border">Domain</th>
+                                    <th class="border">Short Url</th>
+                                    <th class="border">Secret Key</th>
+                                    <th class="border">Count click</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($top as $item)
+                                    <tr>
+                                        <td class="border">{{$item->domain}}</td>
+                                        <td class="border">
+                                            <a href="{{$item->short_key . ($item->secret_key ? '/' . $item->secret_key : '')}}">
+                                                {{$item->short_key}}
+                                            </a>
+                                        </td>
+                                        <td class="border">{{$item->secret_key}}</td>
+                                        <td class="border">{{$item->statistics_count}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     @endif
                 </div>
             </div>

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
 use App\Services\ShortenerDto;
+use Illuminate\Database\Eloquent\Collection;
 
 class UrlRepository implements IUrlRepository
 {
@@ -65,5 +66,14 @@ class UrlRepository implements IUrlRepository
         }
 
         return $attributes;
+    }
+
+    public function getPopularUrlByUser(int $id): ?Collection
+    {
+        return Url::with('Statistics')
+            ->withCount('Statistics')
+            ->orderBy('statistics_count', 'DESC')
+            ->limit(self::POPULAR_LIMIT)
+            ->get();
     }
 }

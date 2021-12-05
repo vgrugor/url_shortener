@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/', [UrlShortenerController::class, 'getShortUrl'])
         ->name('get-short-url');
 
-    Route::view('/', 'dashboard')
+    Route::get('/', [UrlShortenerController::class, 'index'])
         ->name('dashboard');
 });
 

@@ -24,10 +24,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereMetadata($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Statistic whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Url $url
  */
 class Statistic extends Model
 {
     use HasFactory;
 
     const UPDATED_AT = null;
+
+    public function url()
+    {
+        return $this->belongsTo(Url::class, 'event_value', 'short_key');
+    }
 }
