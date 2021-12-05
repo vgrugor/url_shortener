@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Url
@@ -34,6 +33,8 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereValidAt($value)
  * @property int $attributes
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereAttributes($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Statistic[] $statistics
+ * @property-read int|null $statistics_count
  */
 class Url extends Model
 {
@@ -50,5 +51,10 @@ class Url extends Model
     protected function pruning()
     {
         //TODO: Automatic delete statistic before delete old urls
+    }
+
+    public function statistics()
+    {
+        return $this->hasMany(Statistic::class, 'event_value', 'short_key');
     }
 }
