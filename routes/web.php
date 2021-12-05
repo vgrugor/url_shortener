@@ -18,8 +18,11 @@ Route::middleware('auth')->group(function () {
 
     Route::view('/', 'dashboard')
         ->name('dashboard');
+});
+
+Route::middleware(['urlExists', 'statisticsVisited'])->group(function () {
+    Route::get('/{shortKey}', [RedirectController::class, 'redirect']);
 
     Route::get('/{shortKey}/{secretKey}', [RedirectController::class, 'secretRedirect']);
-
-    Route::get('/{shortKey}', [RedirectController::class, 'redirect']);
 });
+

@@ -32,6 +32,8 @@ use Illuminate\Support\Carbon;
  * @property string $valid_at
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereSecretKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Url whereValidAt($value)
+ * @property int $attributes
+ * @method static \Illuminate\Database\Eloquent\Builder|Url whereAttributes($value)
  */
 class Url extends Model
 {
