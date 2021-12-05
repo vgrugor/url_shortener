@@ -3,18 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Statistic;
-use App\Services\Statistics\StatisticsDto;
+use App\Services\Statistics\StatisticDto;
 
 class StatisticRepository implements Contracts\IStatisticRepository
 {
-    public function save(StatisticsDto $statisticsDto): void
+    public function save(StatisticDto $statisticsDto): void
     {
         $statistics = new Statistic();
 
-        $statistics->user_id = $statisticsDto->userId;
-        $statistics->event_type = $statisticsDto->eventType;
-        $statistics->event_value = $statisticsDto->eventValue;
-        $statistics->metadata = $statisticsDto->metadata;
+        $statistics->user_id = $statisticsDto->getUserId();
+        $statistics->event_type = $statisticsDto->getEventType();
+        $statistics->event_value = $statisticsDto->getEventValue();
+        $statistics->metadata = $statisticsDto->getMetadata();
 
         $statistics->save();
     }

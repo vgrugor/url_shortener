@@ -2,22 +2,23 @@
 
 namespace App\Services\Statistics;
 
-use Auth;
 use Illuminate\Http\Request;
+use Auth;
 
-class StatisticsDto
+class StatisticDataTransformer
 {
-    public ?int $userId;
-    public string $eventType;
-    public string $eventValue;
-    public string $metadata;
     private const MASK_METADATA = '{"ip": %s, "userAgent": %s}';
 
-    public function __construct(Request $request)
+    public function fromRequest(Request $request, string $eventType): StatisticDto
     {
-        $this->userId = Auth::id();
-        $this->eventValue = $this->setShortUrl($request->path());
-        $this->metadata = $this->setMetadata($request);
+        $data = [
+            'userId' => Auth::id(),
+            'eventType' => $eventType,
+            'eventValue' => $this->setShortUrl($request->path()),
+            'metadata' => $this->setMetadata($request),
+        ];
+
+        return new StatisticDto($data);
     }
 
     private function setMetadata(Request $request): string
