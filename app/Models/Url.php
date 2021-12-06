@@ -50,7 +50,10 @@ class Url extends Model
 
     protected function pruning()
     {
-        //TODO: Automatic delete statistic before delete old urls
+        Statistic::with('url')
+            ->whereHas('url', function ($q) {
+                $q->where('valid_at', '<', now());
+            })->delete();
     }
 
     public function statistics()
