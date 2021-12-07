@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
 
 final class UrlChecker
@@ -13,7 +14,7 @@ final class UrlChecker
         $this->urlRepository = $urlRepository;
     }
 
-    public function check(string $path): bool
+    public function check(string $path): ?Url
     {
         if (count(explode('/', $path)) > 1) {
             $result = $this->checkSecretUrl($path);
@@ -24,19 +25,20 @@ final class UrlChecker
         return $result;
     }
 
-    private function checkSecretUrl(string $path): bool
+    private function checkSecretUrl(string $path): ?Url
     {
         [$shortKey, $secretKey] = explode('/', $path);
 
-        $url = $this->urlRepository->getSecretUrlByShortKey($shortKey, $secretKey);
-
-        return $url !== null;
+        return $this->urlRepository->getSecretUrlByShortKey($shortKey, $secretKey);
     }
 
-    private function checkNamedOrGeneratedUrl(string $shortKey): bool
+    private function checkNamedOrGeneratedUrl(string $shortKey): ?Url
     {
         $url = $this->urlRepository->getUrlByShortKey($shortKey);
 
-        return $url !== null && $url->secret_key === null;
+        if ($url !== null && $url->secret_key === null) {
+            return $url;
+        }
+        return null;
     }
 }

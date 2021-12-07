@@ -5,7 +5,7 @@ namespace App\Services\Shortener;
 use App\Services\Shortener\Contracts\IShortenerStrategy;
 use App\Services\Shortener\Strategies\NamedShortUrl;
 use App\Services\Shortener\Strategies\SecretShortUrl;
-use App\Services\Shortener\Strategies\SimpleShortUrl;
+use App\Services\Shortener\Strategies\GeneratedShortUrl;
 use Illuminate\Container\Container;
 
 final class ShortUrlFactory
@@ -33,6 +33,6 @@ final class ShortUrlFactory
             return $container->make(SecretShortUrl::class);
         }
 
-        return $container->make(SimpleShortUrl::class);
+        return $container->make(GeneratedShortUrl::class);
     }
 }

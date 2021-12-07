@@ -2,7 +2,7 @@
 
 namespace App\Services\Shortener\Strategies;
 
-final class SimpleShortUrl extends BaseStrategy
+final class GeneratedShortUrl extends BaseStrategy
 {
     public function create(): string
     {
