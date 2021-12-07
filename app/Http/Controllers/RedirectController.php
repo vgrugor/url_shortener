@@ -22,14 +22,15 @@ class RedirectController extends Controller
             return redirect($urlModel->url);
         }
 
-        abort( Response::HTTP_NOT_FOUND);
+        abort(Response::HTTP_NOT_FOUND);
     }
 
     public function secretRedirect(string $shortKey, string $secretKey)
     {
-        $urlModel = $this->urlChecker->check($shortKey);
+        $path = $shortKey . '/' . $secretKey;
+        $urlModel = $this->urlChecker->check($path);
 
-        if($urlModel !== null) {
+        if ($urlModel !== null) {
             return redirect($urlModel->url);
         }
 

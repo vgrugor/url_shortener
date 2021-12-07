@@ -22,7 +22,7 @@ class UrlExists
     {
         $urlChecker = App::make( UrlChecker::class);
 
-        if ($urlChecker->check($request->path() !== null)) {
+        if ($urlChecker->check($request->path()) !== null) {
             return $next($request);
         }
 
