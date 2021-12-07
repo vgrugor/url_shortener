@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
-use App\Services\Contracts\IShortUrlGenerator;
+use App\Services\Shortener\Contracts\IShortUrlGenerator;
 
 class UrlRedirector
 {

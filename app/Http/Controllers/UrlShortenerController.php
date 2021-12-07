@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
 use App\Repositories\Contracts\IUrlRepository;
-use App\Services\ShortUrlFactory;
+use App\Services\Shortener\ShortUrlFactory;
 use Auth;
 
 class UrlShortenerController extends Controller

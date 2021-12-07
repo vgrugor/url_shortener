@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Shortener;
 
 use App\Http\Requests\UrlShortenerRequest;
 use Illuminate\Support\Facades\Auth;

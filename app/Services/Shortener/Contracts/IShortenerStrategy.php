@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace App\Services\Shortener\Contracts;
 
 interface IShortenerStrategy
 {

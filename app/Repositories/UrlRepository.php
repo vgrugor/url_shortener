@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
-use App\Services\ShortenerDto;
+use App\Services\Shortener\ShortenerDto;
 use Illuminate\Database\Eloquent\Collection;
 
 class UrlRepository implements IUrlRepository

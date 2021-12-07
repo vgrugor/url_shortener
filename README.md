@@ -8,7 +8,7 @@
 - <strike>ensure, that short key will not be rewriten</strike>
 - <strike>ensure, that mysql returns case sensitive result</strike>
 - add api
-- add statistic
+- <strike>add statistic</strike>
 - add logs via ELK stack
 - add monitoring via graphana
 - add letsencrypt ssl certificate (https)

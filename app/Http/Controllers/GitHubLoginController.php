@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Contracts\IUserRepository;
 use App\Services\Contracts\IAuthenticator;
 use Laravel\Socialite\Facades\Socialite;
 

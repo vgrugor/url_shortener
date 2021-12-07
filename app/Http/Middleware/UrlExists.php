@@ -15,7 +15,7 @@ class UrlExists
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param \App\Services\UrlChecker $urlChecker
+     * @param \App\Services\Shortener\Shortener\Shortener\UrlChecker $urlChecker
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

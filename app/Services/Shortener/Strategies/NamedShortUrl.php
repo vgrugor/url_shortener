@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Strategies;
+namespace App\Services\Shortener\Strategies;
 
 final class NamedShortUrl extends BaseStrategy
 {

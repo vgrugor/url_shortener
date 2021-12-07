@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Services\Strategies;
+namespace App\Services\Shortener\Strategies;
 
-final class SimpleShortUrl extends BaseStrategy
+use App\Services\Shortener\ShortUrlGenerator;
+
+final class SecretShortUrl extends BaseStrategy
 {
     public function create(): string
     {
         $shortKey = $this->generateShortKey();
+        $secretKey = $this->generateSecretKey();
 
         if ($this->isUnique($shortKey)) {
-            return $this->urlRepository->save($this->shortenerData, $shortKey);
+            return $this->urlRepository->save($this->shortenerData, $shortKey, $secretKey);
         }
 
         return '';
@@ -26,5 +29,10 @@ final class SimpleShortUrl extends BaseStrategy
     private function generateShortKey(): string
     {
         return $this->generator->generate();
+    }
+
+    private function generateSecretKey(): string
+    {
+        return $this->generator->generate(ShortUrlGenerator::MIN_LENGTH_SECRET_KEY, ShortUrlGenerator::MAX_LENGTH_SECRET_KEY);
     }
 }

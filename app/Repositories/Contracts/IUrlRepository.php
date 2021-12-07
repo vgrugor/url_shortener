@@ -3,7 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Url;
-use App\Services\ShortenerDto;
+use App\Services\Shortener\ShortenerDto;
 use Illuminate\Database\Eloquent\Collection;
 
 interface IUrlRepository

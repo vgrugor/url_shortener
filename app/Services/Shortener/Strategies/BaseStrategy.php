@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Strategies;
+namespace App\Services\Shortener\Strategies;
 
 use App\Repositories\Contracts\IUrlRepository;
-use App\Services\Contracts\IShortenerStrategy;
-use App\Services\Contracts\IShortUrlGenerator;
-use App\Services\ShortenerDto;
+use App\Services\Shortener\Contracts\IShortenerStrategy;
+use App\Services\Shortener\Contracts\IShortUrlGenerator;
+use App\Services\Shortener\ShortenerDto;
 
 abstract class BaseStrategy implements IShortenerStrategy
 {

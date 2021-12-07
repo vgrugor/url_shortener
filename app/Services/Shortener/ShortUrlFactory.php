@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Shortener;
 
-use App\Services\Contracts\IShortenerStrategy;
-use App\Services\Strategies\NamedShortUrl;
-use App\Services\Strategies\SecretShortUrl;
-use App\Services\Strategies\SimpleShortUrl;
+use App\Services\Shortener\Contracts\IShortenerStrategy;
+use App\Services\Shortener\Strategies\NamedShortUrl;
+use App\Services\Shortener\Strategies\SecretShortUrl;
+use App\Services\Shortener\Strategies\SimpleShortUrl;
 use Illuminate\Container\Container;
 
 final class ShortUrlFactory
