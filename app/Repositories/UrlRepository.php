@@ -16,16 +16,16 @@ class UrlRepository implements IUrlRepository
         $this->url = $url;
     }
 
-    public function save(ShortenerDto $shortenerDto, string $shortKey, string $secretKey = null): string
+    public function save(ShortenerDto $dto, string $shortKey, string $secretKey = null): string
     {
         $newUrl = new $this->url();
 
-        $newUrl->user_id = $shortenerDto->userId;
+        $newUrl->user_id = $dto->getUserId();
         $newUrl->short_key = $shortKey;
         $newUrl->secret_key = $secretKey;
-        $newUrl->attributes = $this->setAttributes($shortenerDto);
-        $newUrl->url = $shortenerDto->url;
-        $newUrl->domain = $shortenerDto->domain;
+        $newUrl->attributes = $this->setAttributes($dto);
+        $newUrl->url = $dto->getUrl();
+        $newUrl->domain = $dto->getDomain();
 
         $newUrl->save();
 
@@ -53,15 +53,15 @@ class UrlRepository implements IUrlRepository
         return Url::where($conditions)->first();
     }
 
-    public function setAttributes(ShortenerDto $shortenerDto): int
+    public function setAttributes(ShortenerDto $dto): int
     {
         $attributes = 0;
 
-        if ($shortenerDto->name !== null) {
+        if ($dto->getIsNamed()) {
             $attributes |= self::IS_NAMED;
         }
 
-        if ($shortenerDto->isSecret === true) {
+        if ($dto->getIsSecret()) {
             $attributes |= self::IS_SECRET;
         }
 

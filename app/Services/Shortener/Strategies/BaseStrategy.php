@@ -9,16 +9,14 @@ use App\Services\Shortener\ShortenerDto;
 
 abstract class BaseStrategy implements IShortenerStrategy
 {
-    protected ShortenerDto $shortenerData;
     protected IUrlRepository $urlRepository;
     protected IShortUrlGenerator $generator;
 
-    public function __construct(ShortenerDto $dto, IUrlRepository $repository, IShortUrlGenerator $generator)
+    public function __construct(IUrlRepository $repository, IShortUrlGenerator $generator)
     {
-        $this->shortenerData = $dto;
         $this->urlRepository = $repository;
         $this->generator = $generator;
     }
 
-    abstract public function create();
+    abstract public function create(ShortenerDto $dto);
 }

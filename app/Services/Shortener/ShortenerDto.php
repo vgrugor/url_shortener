@@ -2,23 +2,59 @@
 
 namespace App\Services\Shortener;
 
-use App\Http\Requests\UrlShortenerRequest;
-use Illuminate\Support\Facades\Auth;
-
 final class ShortenerDto
 {
-    public string $url;
-    public ?string $name;
-    public bool $isSecret;
-    public string $domain;
-    public int $userId;
+    private string $url;
+    private ?string $name;
+    private string $domain;
+    private int $userId;
+    private bool $isSecret;
+    private bool $isNamed;
+    private bool $isGenerated;
 
-    public function __construct(UrlShortenerRequest $request)
+    public function __construct(array $data)
     {
-        $this->url = $request->input('url');
-        $this->name = $request->input('name');
-        $this->isSecret= $request->input('isSecret') ?? false;
-        $this->domain = parse_url($request->input('url'), PHP_URL_HOST);
-        $this->userId = Auth::id();
+        $this->url = $data['url'];
+        $this->name = $data['name'];
+        $this->isSecret = $data['isSecret'];
+        $this->domain = $data['domain'];
+        $this->userId = $data['userId'];
+        $this->isNamed = $data['isNamed'];
+        $this->isGenerated = $data['isGenerated'];
+    }
+
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function getIsSecret(): bool
+    {
+        return $this->isSecret;
+    }
+
+    public function getDomain(): string
+    {
+        return $this->domain;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    public function getIsNamed(): bool
+    {
+        return $this->isNamed;
+    }
+
+    public function getIsGenerated(): bool
+    {
+        return $this->isGenerated;
     }
 }

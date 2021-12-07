@@ -18,7 +18,7 @@ interface IUrlRepository
 
     public function getSecretUrlByShortKey(string $shortKey, string $secretKey): ?Url;
 
-    public function setAttributes(ShortenerDto $shortenerDto): int;
+    public function setAttributes(ShortenerDto $dto): int;
 
     public function getPopularUrlByUser(int $id): ?Collection;
 }

@@ -6,33 +6,24 @@ use App\Services\Shortener\Contracts\IShortenerStrategy;
 use App\Services\Shortener\Strategies\NamedShortUrl;
 use App\Services\Shortener\Strategies\SecretShortUrl;
 use App\Services\Shortener\Strategies\GeneratedShortUrl;
-use Illuminate\Container\Container;
+use App;
 
 final class ShortUrlFactory
 {
-    private ShortenerDto $shortenerDto;
-
-    public function __construct(ShortenerDto $shortenerDto)
-    {
-        $this->shortenerDto = $shortenerDto;
-    }
-
     /**
      * @return IShortenerStrategy
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function getShortenerStrategy(): IShortenerStrategy
+    public function getShortenerStrategy(ShortenerDto $dto): IShortenerStrategy
     {
-        $container = Container::getInstance();
-
-        if (!is_null($this->shortenerDto->name)) {
-            return $container->make(NamedShortUrl::class);
+        if ($dto->getIsNamed()) {
+            return App::make(NamedShortUrl::class);
         }
 
-        if ($this->shortenerDto->isSecret) {
-            return $container->make(SecretShortUrl::class);
+        if ($dto->getIsSecret()) {
+            return App::make(SecretShortUrl::class);
         }
 
-        return $container->make(GeneratedShortUrl::class);
+        return App::make(GeneratedShortUrl::class);
     }
 }

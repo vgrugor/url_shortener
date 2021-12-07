@@ -2,14 +2,16 @@
 
 namespace App\Services\Shortener\Strategies;
 
+use App\Services\Shortener\ShortenerDto;
+
 final class GeneratedShortUrl extends BaseStrategy
 {
-    public function create(): string
+    public function create(ShortenerDto $dto): string
     {
         $shortKey = $this->generateShortKey();
 
         if ($this->isUnique($shortKey)) {
-            return $this->urlRepository->save($this->shortenerData, $shortKey);
+            return $this->urlRepository->save($dto, $shortKey);
         }
 
         return '';

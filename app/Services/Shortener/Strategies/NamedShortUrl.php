@@ -2,20 +2,22 @@
 
 namespace App\Services\Shortener\Strategies;
 
+use App\Services\Shortener\ShortenerDto;
+
 final class NamedShortUrl extends BaseStrategy
 {
-    public function create(): string
+    public function create(ShortenerDto $dto): string
     {
-        if ($this->isUnique()) {
-            return $this->urlRepository->save($this->shortenerData, $this->shortenerData->name);
+        if ($this->isUnique($dto->getName())) {
+            return $this->urlRepository->save($dto, $dto->getName());
         }
 
         return '';
     }
 
-    private function isUnique(): bool
+    private function isUnique(string $name): bool
     {
-        if ($this->urlRepository->getUrlByShortKey($this->shortenerData->name)) {
+        if ($this->urlRepository->getUrlByShortKey($name)) {
             return false;
         }
         return true;
