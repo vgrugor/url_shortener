@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Shortener;
 
-use App\Services\Contracts\IShortUrlGenerator;
+use App\Services\Shortener\Contracts\IShortUrlGenerator;
 use Exception;
 use Illuminate\Support\Str;
 
@@ -29,7 +29,7 @@ class ShortUrlGenerator implements IShortUrlGenerator
 
     private function inBlackList(string $shortKey): bool
     {
-        $blacklist = array_flip(include "blacklist.php");
+        $blacklist = array_flip(include "../app/Services/blacklist.php");
 
         if (isset($blacklist[$shortKey])) {
             return true;

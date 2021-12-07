@@ -2,35 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\UrlRedirector;
+use App\Services\UrlChecker;
 use Illuminate\Http\Response;
 
 class RedirectController extends Controller
 {
-    private UrlRedirector $urlService;
+    private UrlChecker $urlChecker;
 
-    public function __construct(UrlRedirector $urlService)
+    public function __construct(UrlChecker $urlChecker)
     {
-        $this->urlService = $urlService;
+        $this->urlChecker = $urlChecker;
     }
 
     public function redirect(string $shortKey)
     {
-        $urlModel = $this->urlService->getRedirectUrl($shortKey);
+        $urlModel = $this->urlChecker->check($shortKey);
 
-        if ($urlModel !== null && $urlModel->secret_key === null) {
+        if ($urlModel !== null) {
             return redirect($urlModel->url);
         }
-        abort( Response::HTTP_NOT_FOUND);
+
+        abort(Response::HTTP_NOT_FOUND);
     }
 
     public function secretRedirect(string $shortKey, string $secretKey)
     {
-        $urlModel = $this->urlService->getRedirectSecretUrl($shortKey, $secretKey);
+        $path = $shortKey . '/' . $secretKey;
+        $urlModel = $this->urlChecker->check($path);
 
-        if($urlModel !== null) {
+        if ($urlModel !== null) {
             return redirect($urlModel->url);
         }
+
         abort(Response::HTTP_NOT_FOUND);
     }
 }

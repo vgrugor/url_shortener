@@ -3,7 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Url;
-use App\Services\ShortenerDto;
+use App\Services\Shortener\ShortenerDto;
 use Illuminate\Database\Eloquent\Collection;
 
 interface IUrlRepository
@@ -18,7 +18,7 @@ interface IUrlRepository
 
     public function getSecretUrlByShortKey(string $shortKey, string $secretKey): ?Url;
 
-    public function setAttributes(ShortenerDto $shortenerDto): int;
+    public function setAttributes(ShortenerDto $dto): int;
 
     public function getPopularUrlByUser(int $id): ?Collection;
 }
