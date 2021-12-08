@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace App\Services\Auth\Contracts;
 use \Laravel\Socialite\Two\User;
 
 interface IAuthenticator

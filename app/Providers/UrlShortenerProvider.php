@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Services\Contracts\IAuthenticator;
+use App\Services\Auth\Contracts\IAuthenticator;
 use App\Services\Shortener\Contracts\IShortUrlGenerator;
-use App\Services\GitHubAuthenticator;
+use App\Services\Auth\GitHubAuthenticator;
 use App\Services\Shortener\ShortUrlGenerator;
 use Illuminate\Support\ServiceProvider;
 

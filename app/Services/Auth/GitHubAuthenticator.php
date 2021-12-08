@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Auth;
 
 use App\Repositories\Contracts\IUserRepository;
-use App\Services\Contracts\IAuthenticator;
+use App\Services\Auth\Contracts\IAuthenticator;
 use Illuminate\Support\Facades\Auth;
 use \Laravel\Socialite\Two\User;
 
