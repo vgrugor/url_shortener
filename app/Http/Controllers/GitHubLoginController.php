@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Contracts\IAuthenticator;
+use App\Services\Auth\Contracts\IAuthenticator;
 use Laravel\Socialite\Facades\Socialite;
 
 class GitHubLoginController extends Controller
