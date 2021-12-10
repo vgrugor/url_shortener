@@ -9,34 +9,32 @@ use App\Models\Url;
 use App\Services\Shortener\ShortenerDataTransformer;
 use App\Services\Shortener\ShortUrlFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ShortenerController extends Controller
 {
 
     public function index()
     {
-        return UrlResource::collection(Url::all());
+        return response()->json(
+            UrlResource::collection(Url::all()),
+            Response::HTTP_OK
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(UrlShortenerRequest $request, ShortUrlFactory $shortUrlFactory)
     {
         $dto = (new ShortenerDataTransformer())->fromRequest($request);
 
         $shortener = $shortUrlFactory->getShortenerStrategy($dto);
 
-        return $shortener->create($dto);
+        return response()->json(
+            $shortener->create($dto),
+            Response::HTTP_CREATED
+        );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($shortKey)
+    public function show(string $shortKey)
     {
         $url = Url::where('short_key', $shortKey)->first();
 
@@ -45,26 +43,19 @@ class ShortenerController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        //TODO: add code
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(string $shortKey)
     {
-        //
+        $url = Url::where('short_key', $shortKey)->first();
+
+        if ($url !== null) {
+            $url->delete();
+        }
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
