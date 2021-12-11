@@ -7,8 +7,7 @@ final class ShortenerDto
     private string $url;
     private ?string $name;
     private string $domain;
-    private ?int $userId;
-    //TODO: notNull
+    private int $userId;
     private bool $isSecret;
     private bool $isNamed;
     private bool $isGenerated;
@@ -44,8 +43,7 @@ final class ShortenerDto
         return $this->domain;
     }
 
-    //TODO: notNull
-    public function getUserId(): ?int
+    public function getUserId(): int
     {
         return $this->userId;
     }
