@@ -26,3 +26,4 @@ Route::middleware(['urlExists', 'statisticsVisited'])->group(function () {
     Route::get('/{shortKey}/{secretKey}', [RedirectController::class, 'secretRedirect']);
 });
 
+Auth::routes();

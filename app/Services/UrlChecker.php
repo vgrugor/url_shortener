@@ -39,6 +39,7 @@ final class UrlChecker
         if ($url !== null && $url->secret_key === null) {
             return $url;
         }
+
         return null;
     }
 }
