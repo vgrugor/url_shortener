@@ -7,7 +7,7 @@
 - add redis for caching urls
 - <strike>ensure, that short key will not be rewriten</strike>
 - <strike>ensure, that mysql returns case sensitive result</strike>
-- add api
+- <strike>add api</strike>
 - <strike>add statistic</strike>
 - add logs via ELK stack
 - add monitoring via graphana
