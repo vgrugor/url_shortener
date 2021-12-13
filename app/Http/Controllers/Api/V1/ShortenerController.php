@@ -15,10 +15,17 @@ use Throwable;
 
 class ShortenerController extends Controller
 {
+    private IUrlRepository $urlRepository;
+
+    public function __construct(IUrlRepository $urlRepository)
+    {
+        $this->urlRepository = $urlRepository;
+    }
 
     public function index()
     {
-        return response()->json(UrlResource::collection(Url::all()),Response::HTTP_OK);
+        $urls = $this->urlRepository->getPopularUrlByUser(\Auth::id());
+        return response()->json(UrlResource::collection($urls),Response::HTTP_OK);
     }
 
     public function store(UrlShortenerRequest $request, ShortUrlFactory $shortUrlFactory)
@@ -36,9 +43,9 @@ class ShortenerController extends Controller
         }
     }
 
-    public function show(IUrlRepository $urlRepository, string $shortKey)
+    public function show(string $shortKey)
     {
-        $url = $urlRepository->getUrlByShortKey($shortKey);
+        $url = $this->urlRepository->getUrlByShortKey($shortKey);
 
         if ($url !== null) {
             return response()->json(new UrlResource($url), Response::HTTP_OK);
@@ -47,9 +54,9 @@ class ShortenerController extends Controller
         return response()->json(['errors' => 'Not Found'], Response::HTTP_NOT_FOUND);
     }
 
-    public function destroy(IUrlRepository $urlRepository, string $shortKey)
+    public function destroy(string $shortKey)
     {
-        $url = $urlRepository->getUrlByShortKey($shortKey);
+        $url = $this->urlRepository->getUrlByShortKey($shortKey);
 
         if ($url !== null) {
             $url->delete();
