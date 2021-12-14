@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/managing-urls', [UrlManagingController::class, 'index'])
         ->name('managing-urls');
+
+    Route::get('/destroy/{shortKey}', [UrlManagingController::class, 'destroy'])
+        ->name('destroy');
 });
 
 Route::middleware(['urlExists', 'statisticsVisited'])->group(function () {
