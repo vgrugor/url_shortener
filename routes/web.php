@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GitHubLoginController;
 use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\UrlManagingController;
 use App\Http\Controllers\UrlShortenerController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/', [UrlShortenerController::class, 'index'])
         ->name('dashboard');
+
+    Route::get('/managing-urls', [UrlManagingController::class, 'index'])
+        ->name('managing-urls');
+
+    Route::get('/destroy/{shortKey}', [UrlManagingController::class, 'destroy'])
+        ->name('destroy');
 });
 
 Route::middleware(['urlExists', 'statisticsVisited'])->group(function () {

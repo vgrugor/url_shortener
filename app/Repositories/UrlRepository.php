@@ -6,6 +6,7 @@ use App\Models\Url;
 use App\Repositories\Contracts\IUrlRepository;
 use App\Services\Shortener\ShortenerDto;
 use Auth;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class UrlRepository implements IUrlRepository
@@ -77,5 +78,11 @@ class UrlRepository implements IUrlRepository
             ->orderBy('statistics_count', 'DESC')
             ->limit(self::POPULAR_LIMIT)
             ->get();
+    }
+
+    public function getAll(): ?Paginator
+    {
+        return Url::where('user_id', Auth::id())
+            ->simplePaginate(self::COUNT_URLS_ONE_PAGE);
     }
 }

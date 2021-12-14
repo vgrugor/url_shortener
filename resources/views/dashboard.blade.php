@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="flex justify-center mt-6">
-                            <x-button class="justify-self-center" tabindex="3">
+                            <x-button class="justify-self-center transition delay-150 duration-300 ease-in-out" tabindex="3">
                                 {{ __('GET SHORT URL')}}
                             </x-button>
                         </div>
