@@ -60,4 +60,9 @@ class Url extends Model
     {
         return $this->hasMany(Statistic::class, 'event_value', 'short_key');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

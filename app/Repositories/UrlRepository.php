@@ -80,9 +80,18 @@ class UrlRepository implements IUrlRepository
             ->get();
     }
 
-    public function getAll(): ?Paginator
+    public function getAllForUser(): ?Paginator
     {
         return Url::where('user_id', Auth::id())
+            ->simplePaginate(self::COUNT_URLS_ONE_PAGE);
+    }
+
+    public function getAll(): ?Paginator
+    {
+        return Url::with('user')
+            ->with('Statistics')
+            ->withCount('Statistics')
+            ->orderBy('statistics_count', 'DESC')
             ->simplePaginate(self::COUNT_URLS_ONE_PAGE);
     }
 }

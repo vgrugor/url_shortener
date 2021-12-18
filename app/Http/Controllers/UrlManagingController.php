@@ -17,7 +17,7 @@ class UrlManagingController extends Controller
 
     public function index()
     {
-        $urls = $this->urlRepository->getAll();
+        $urls = $this->urlRepository->getAllForUser();
 
         return view('managing-urls')->with(['urls' => $urls]);
     }
@@ -29,8 +29,7 @@ class UrlManagingController extends Controller
         if ($url !== null) {
             $url->delete();
 
-            return redirect()->route('managing-urls')
-                ->with('message', 'Short Key is deleted!');
+            return back()->with('message', 'Short Key is deleted!');
         }
 
         Log::warning("Can't find the short key $shortKey");
