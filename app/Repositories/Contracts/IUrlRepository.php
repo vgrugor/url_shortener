@@ -24,5 +24,7 @@ interface IUrlRepository
 
     public function getPopularUrlByUser(int $id): ?Collection;
 
+    public function getAllForUser(): ?Paginator;
+
     public function getAll(): ?Paginator;
 }

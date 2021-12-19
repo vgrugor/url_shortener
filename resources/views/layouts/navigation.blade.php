@@ -18,6 +18,11 @@
                     <x-nav-link :href="route('managing-urls')" :active="request()->routeIs('managing-urls')">
                         {{ __('Managing urls') }}
                     </x-nav-link>
+                    @if(auth()->user()?->role === 'admin')
+                        <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                            {{ __('Admin panel') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

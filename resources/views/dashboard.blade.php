@@ -11,13 +11,13 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h2 class="text-center mt-5 text-4xl">Generate Short Url</h2>
                     <form action="{{route('get-short-url')}}" method="POST" class="flex-col">
-                        <input class="w-full m-2" type="text" name="url" value="" tabindex="1" placeholder="url" autofocus>
+                        <input class="w-full m-2" type="text" value="{{ old('url') }}" name="url" value="" tabindex="1" placeholder="url" autofocus>
                         <div class="flex justify-between items-center m-2">
                             <div class="flex-grow pr-3">
-                                <input class="w-full" type="text" id="name" name="name" placeholder="url name" tabindex="3">
+                                <input class="w-full" type="text" value="{{ old('name') }}" id="name" name="name" placeholder="url name" tabindex="3">
                             </div>
                             <div class="flex-none ">
-                                <input type="checkbox" id="isSecret" name="isSecret" value="1" tabindex="2">
+                                <input type="checkbox" id="isSecret" name="isSecret" value="1" tabindex="2" {{ old('isSecret') ? 'checked' : ''}}>
                                 <label for="isSecret">Make secret url</label>
                             </div>
                         </div>

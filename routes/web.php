@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GitHubLoginController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\UrlManagingController;
@@ -28,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/destroy/{shortKey}', [UrlManagingController::class, 'destroy'])
         ->name('destroy');
 });
+
+Route::get('/admin', [AdminController::class, 'index'])->middleware(['admin'])->name('admin');
 
 Route::middleware(['urlExists', 'statisticsVisited'])->group(function () {
     Route::get('/{shortKey}', [RedirectController::class, 'redirect']);

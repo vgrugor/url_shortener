@@ -40,26 +40,32 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-center mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
+            <div class="flex items-center justify-center mt-1">
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
-
             </div>
         </form>
 
         <div class="flex items-center justify-center mt-4">
             <form method="GET" action="{{ route('redirectGitHub') }}">
                 <x-button class="ml-10">
-                    {{ __('Log in GitHub') }}
+                    {{ __('Log in via GitHub') }}
                 </x-button>
             </form>
         </div>
+
+        <div class="flex items-center justify-between mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
+            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                {{ __('Register') }}
+            </a>
+        </div>
+
+
     </x-auth-card>
 </x-guest-layout>
