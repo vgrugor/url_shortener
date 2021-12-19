@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Jobs\StatisticVisitedJob;
 use App\Repositories\Contracts\IStatisticRepository;
+use App\Repositories\StatisticRepository;
 use App\Services\Statistics\StatisticDataTransformer;
 use Closure;
 use Illuminate\Http\Request;
@@ -10,8 +12,6 @@ use App;
 
 class StatisticsVisited
 {
-    private const VISITED = 'short_url_visited';
-
     /**
      * Handle an incoming request.
      *
@@ -21,10 +21,9 @@ class StatisticsVisited
      */
     public function handle(Request $request, Closure $next)
     {
-        $statisticRepository = App::make(IStatisticRepository::class);
-        $dto = (new StatisticDataTransformer())->fromRequest($request, self::VISITED);
+        $dto = (new StatisticDataTransformer())->fromRequest($request, StatisticRepository::VISITED);
 
-        $statisticRepository->save($dto);
+        StatisticVisitedJob::dispatch($dto);
 
         return $next($request);
     }
