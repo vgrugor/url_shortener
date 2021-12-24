@@ -2,10 +2,13 @@
 
 namespace App\Services\Shortener;
 
+use Carbon\Carbon;
+
 final class ShortenerDto
 {
     private string $url;
     private ?string $name;
+    private Carbon $validAt;
     private string $domain;
     private int $userId;
     private bool $isSecret;
@@ -17,6 +20,7 @@ final class ShortenerDto
         $this->url = $data['url'];
         $this->name = $data['name'];
         $this->isSecret = $data['isSecret'];
+        $this->validAt = $data['validAt'];
         $this->domain = $data['domain'];
         $this->userId = $data['userId'];
         $this->isNamed = $data['isNamed'];
@@ -56,5 +60,10 @@ final class ShortenerDto
     public function getIsGenerated(): bool
     {
         return $this->isGenerated;
+    }
+
+    public function getValidAt(): Carbon
+    {
+        return $this->validAt;
     }
 }

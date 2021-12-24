@@ -25,6 +25,7 @@ class UrlRepository implements IUrlRepository
         $newUrl->user_id = $dto->getUserId();
         $newUrl->short_key = $shortKey;
         $newUrl->secret_key = $secretKey;
+        $newUrl->valid_at = $dto->getValidAt();
         $newUrl->attributes = $this->setAttributes($dto);
         $newUrl->url = $dto->getUrl();
         $newUrl->domain = $dto->getDomain();

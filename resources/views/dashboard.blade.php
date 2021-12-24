@@ -16,7 +16,13 @@
                             <div class="flex-grow pr-3">
                                 <input class="w-full" type="text" value="{{ old('name') }}" id="name" name="name" placeholder="url name" tabindex="3">
                             </div>
-                            <div class="flex-none ">
+                            <div class="flex-none pr-3">
+                                <div class="flex-col">
+                                    <label for="date">Time to Live</label>
+                                    <input type="date" value="{{ old('date') }}" id="date" name="date" placeholder="url name" tabindex="3">
+                                </div>
+                            </div>
+                            <div class="flex-none">
                                 <input type="checkbox" id="isSecret" name="isSecret" value="1" tabindex="2" {{ old('isSecret') ? 'checked' : ''}}>
                                 <label for="isSecret">Make secret url</label>
                             </div>
