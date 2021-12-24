@@ -4,6 +4,7 @@ namespace App\Services\Shortener;
 
 use App\Http\Requests\UrlShortenerRequest;
 use Auth;
+use Carbon\Carbon;
 
 final class ShortenerDataTransformer
 {
@@ -12,6 +13,7 @@ final class ShortenerDataTransformer
         $data = [
             'url' => $request->input('url'),
             'name' => $request->input('name'),
+            'validAt' => $this->validAt($request->input('date')),
             'domain' => $this->parseDomain($request->input('url')),
             'userId' => Auth::id(),
             'isSecret' => $request->has('isSecret'),
@@ -35,5 +37,10 @@ final class ShortenerDataTransformer
     private function isGenerated(bool $isSecret, bool $hasName): bool
     {
         return !$isSecret && !$hasName;
+    }
+
+    private function validAt(string $date): Carbon
+    {
+        return (new Carbon($date))->addDay();
     }
 }

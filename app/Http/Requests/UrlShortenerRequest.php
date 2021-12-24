@@ -27,6 +27,7 @@ class UrlShortenerRequest extends FormRequest
         return [
             'url' => 'required|string|url',
             'name' => ['max:10', 'unique:urls,short_key', Rule::notIn(include "../app/Services/blacklist.php")],
+            'date' => 'required|date|after:today',
         ];
     }
 
