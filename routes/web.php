@@ -7,7 +7,6 @@ use App\Http\Controllers\UrlManagingController;
 use App\Http\Controllers\UrlShortenerController;
 use Illuminate\Support\Facades\Route;
 
-
 require __DIR__.'/auth.php';
 Auth::routes();
 
