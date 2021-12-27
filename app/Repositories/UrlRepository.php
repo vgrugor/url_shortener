@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Url;
+use App\Repositories\Contracts\IStatisticRepository;
 use App\Repositories\Contracts\IUrlRepository;
 use App\Services\Shortener\ShortenerDto;
 use Auth;
@@ -73,10 +74,10 @@ class UrlRepository implements IUrlRepository
 
     public function getPopularUrlByUser(int $id): ?Collection
     {
-        return Url::with('Statistics')
+        return Url::with('StatisticsVisited')
             ->where('user_id', Auth::id())
-            ->withCount('Statistics')
-            ->orderBy('statistics_count', 'DESC')
+            ->withCount('StatisticsVisited')
+            ->orderBy('statistics_visited_count', 'DESC')
             ->limit(self::POPULAR_LIMIT)
             ->get();
     }
@@ -90,9 +91,9 @@ class UrlRepository implements IUrlRepository
     public function getAll(): ?Paginator
     {
         return Url::with('user')
-            ->with('Statistics')
-            ->withCount('Statistics')
-            ->orderBy('statistics_count', 'DESC')
+            ->with('StatisticsVisited')
+            ->withCount('StatisticsVisited')
+            ->orderBy('statistics_visited_count', 'DESC')
             ->simplePaginate(self::COUNT_URLS_ONE_PAGE);
     }
 }
