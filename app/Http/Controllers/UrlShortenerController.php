@@ -37,11 +37,8 @@ class UrlShortenerController extends Controller
 
         $shortUrl = $shortener->create($dto);
 
-        if ($shortUrl !== '') {
-            $dto = (new StatisticDataTransformer())->fromRequest($request, IStatisticRepository::CREATED);
-
-            StatisticCreatedJob::dispatch($dto);
-        }
+        $statisticCreateDto = (new StatisticDataTransformer())->fromRequest($request, IStatisticRepository::CREATED, $shortUrl);
+        StatisticCreatedJob::dispatch($statisticCreateDto);
 
         $top = $this->urlRepository->getPopularUrlByUser(Auth::id());
 

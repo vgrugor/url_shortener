@@ -47,7 +47,7 @@
                                     </a>
                                 </td>
                                 <td class="border">{{$url->secret_key}}</td>
-                                <td class="border">{{$url->statistics_count}}</td>
+                                <td class="border">{{$url->statistics_visited_count}}</td>
                                 <td class="border">
                                     <a href="{{route('destroy', ['shortKey' => $url->short_key])}}" class="text-red-500" tabindex="3">
                                         {{ __('Delete')}}

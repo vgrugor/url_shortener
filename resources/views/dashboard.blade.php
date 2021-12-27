@@ -77,7 +77,7 @@
                                             </a>
                                         </td>
                                         <td class="border">{{$item->secret_key}}</td>
-                                        <td class="border">{{$item->statistics_count}}</td>
+                                        <td class="border">{{$item->statistics_visited_count}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

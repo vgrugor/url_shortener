@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\Contracts\IStatisticRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Prunable;
@@ -56,9 +57,10 @@ class Url extends Model
             })->delete();
     }
 
-    public function statistics()
+    public function statisticsVisited()
     {
-        return $this->hasMany(Statistic::class, 'event_value', 'short_key');
+        return $this->hasMany(Statistic::class, 'event_value', 'short_key')
+            ->where('event_type', IStatisticRepository::VISITED);
     }
 
     public function user()

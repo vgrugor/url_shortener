@@ -9,12 +9,12 @@ class StatisticDataTransformer
 {
     private const MASK_METADATA = '{"ip": %s, "userAgent": %s}';
 
-    public function fromRequest(Request $request, string $eventType): StatisticDto
+    public function fromRequest(Request $request, string $eventType, ?string $shortKey = null): StatisticDto
     {
         $data = [
             'userId' => Auth::id(),
             'eventType' => $eventType,
-            'eventValue' => $this->setShortUrl($request->path()),
+            'eventValue' => $this->setShortUrl($shortKey ?? $request->path()),
             'metadata' => $this->setMetadata($request),
         ];
 
