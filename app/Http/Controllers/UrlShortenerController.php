@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UrlShortenerRequest;
+use App\Jobs\StatisticCreatedJob;
+use App\Repositories\Contracts\IStatisticRepository;
 use App\Repositories\Contracts\IUrlRepository;
 use App\Services\Shortener\ShortenerDataTransformer;
 use App\Services\Shortener\ShortUrlFactory;
+use App\Services\Statistics\StatisticDataTransformer;
 use Auth;
 
 class UrlShortenerController extends Controller
@@ -33,6 +36,12 @@ class UrlShortenerController extends Controller
         $shortener = $shortUrlFactory->getShortenerStrategy($dto);
 
         $shortUrl = $shortener->create($dto);
+
+        if ($shortUrl !== '') {
+            $dto = (new StatisticDataTransformer())->fromRequest($request, IStatisticRepository::CREATED);
+
+            StatisticCreatedJob::dispatch($dto);
+        }
 
         $top = $this->urlRepository->getPopularUrlByUser(Auth::id());
 

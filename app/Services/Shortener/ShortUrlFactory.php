@@ -11,8 +11,8 @@ use App;
 final class ShortUrlFactory
 {
     /**
+     * @param ShortenerDto $dto
      * @return IShortenerStrategy
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getShortenerStrategy(ShortenerDto $dto): IShortenerStrategy
     {
